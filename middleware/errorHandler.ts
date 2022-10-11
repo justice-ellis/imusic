@@ -1,9 +1,6 @@
-import { NextFunction, Request, Response } from 'express';
 
-
-const errorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
-    console.error(err.stack)
-    res.status(500).send(err.message);
+export function getErrorMessage(error: unknown): any {
+    if (error instanceof Error) return error.message;
+    return String(error)
 }
 
-export default errorHandler
