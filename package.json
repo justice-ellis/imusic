@@ -6,7 +6,7 @@
   "author": "Justice Ellis",
   "license": "ISC",
   "scripts": {
-    "dev": "tsnd --respawn server.ts",
+    "start": "tsnd --respawn server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {

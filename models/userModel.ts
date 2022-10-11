@@ -6,8 +6,6 @@ export default class User extends Model {
     public name!: string;
     public email!: string;
     public password!: string;
-    public passwordResetToken!: string;
-    public passwordResetExpires!: Date;
 }
 
 

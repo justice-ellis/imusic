@@ -10,9 +10,10 @@ import bcrypt from 'bcrypt';
 
 export const verifyUser = async (req: Request, res: Response) => {
 
-    const authHeader = req.body;
-    res.sendStatus(200).json({'message': `🏆 Your Status is ${authHeader}!`});
+    const authHeader = req.cookies.body;
     console.log(authHeader);
+
+    res.sendStatus(200).json({'message': `🏆 Your Status is ${authHeader}!`});
     // if (!authHeader) {
     //     return res.sendStatus(200).json({'message': '😊 Unregistered User!'});
     // } else {

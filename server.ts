@@ -5,10 +5,11 @@ import path from 'path';
 import cookieSession = require('cookie-session');
 import cookieParser from 'cookie-parser';
 import userRouter from './routes/userRoutes';
+import messageRoute from './routes/messageRoutes'
 import { verifyUser } from './controllers/verifyUserController';
 import sequelize from './config/db';
 import { registerUser } from './controllers/userController';
-import message, { mapMessage } from './models/messageModel';
+import message, { mapPrivatemessage } from './models/privatemessagesModel';
 import db from './config/db';
 
 const port = process.env.PORT || 3000;
@@ -22,8 +23,7 @@ app.use('/', express.static(path.join(__dirname, '/public')));
 
 // routes
 app.use('/api/v1/users', userRouter);
-app.use('/api/v1/users', verifyUser);
-
+app.use('/api/v1/message', messageRoute);
 
 
 sequelize.authenticate().then(() => {

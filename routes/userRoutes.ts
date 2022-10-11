@@ -12,7 +12,7 @@ router.post('/register', registerUser);
 router.post('/login', logIn);
 router.get('/refresh', handleRefreshToken);
 
-router.get('/', verifyjwt,getAllUsers);
+router.get('/', verifyjwt, getAllUsers);
 
 //router.get('/chat', verifyjwt,getAllUsers); add chat controller
 

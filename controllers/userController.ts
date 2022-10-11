@@ -104,7 +104,7 @@ export const logIn = async(req:Request, res: Response) => {
             const accessToken =  jwt.sign(
                 {"name": userFound.name},
                 SECRET_KEY,
-                { expiresIn: '30min' }
+                { expiresIn: '9h' }
             );
     
             const refreshToken =  jwt.sign(
