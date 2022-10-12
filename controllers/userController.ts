@@ -4,6 +4,7 @@ import User,  {mapUser} from '../models/userModel';
 import jwt, {Secret} from 'jsonwebtoken';
 import db from '../config/db';
 import bcrypt from 'bcrypt';
+import { getErrorMessage } from '../middleware/errorHandler';
 
 
 export const SECRET_KEY: Secret = "nanatetragramatonages";
@@ -133,6 +134,72 @@ export const logIn = async(req:Request, res: Response) => {
         console.error('⚠ Error Found!')
     };
         
+};
+
+type P = {
+    name: string;
+    email: string;
+    newPassword: string;
+}
+
+export const resetPassword = async(req: Request, res: Response) => {
+    try {
+        mapUser(db);
+        const user: P = {
+            name: req.body.name,
+            email: req.body.email,
+            newPassword: req.body.newPassword
+        };
+
+        if (!user.name || !user.newPassword) {
+            res.status(409).json({'message': '⚠ Add all Fields!'}) 
+        }  
+
+        const usernameFound = await User.findOne({where: {name: user.name}});
+        const emailFound = await User.findOne({where: {email: user.email}});
+
+        if (usernameFound && emailFound) {
+            await User.destroy({ where: { email: user.email } });
+
+            if (!user.name || !user.email || !user.newPassword) {
+                res.status(409).json({'message': '⚠ Add all Fields!'}) 
+            }  
+            
+            const duplicate = await User.findOne({where: {email: user.email}});
+           
+            if (duplicate === null) {
+    
+                //encrypt the password
+                const hashedPwd = await bcrypt.hash(user.newPassword, 10);
+                
+                //store the new user
+                const newUser: U = {
+                    name: req.body.name,
+                    email: req.body.email,
+                    password: hashedPwd
+                }
+    
+                User.create(newUser);
+    
+                console.log(newUser);
+    
+               return res.status(200).json({'message': `🤩🎀🎉🏆 Password changed successfully !`}); 
+            } else {
+                return new Error('⚠ Credentials already taken 🔒 Choose another!');
+            }
+      
+        } 
+        
+        if (!usernameFound && !emailFound) {
+           
+            return res.status(200).json({'message': '⚠ Click Button to Register Now!'})
+
+        }
+
+    } catch (error) {
+        
+        res.status(404).json(getErrorMessage(error))
+    }
 };
 
 export const handleRefreshToken = (req: Request, res: Response) => {
