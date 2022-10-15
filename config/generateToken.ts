@@ -3,7 +3,7 @@ require('dotenv').config();
 
 //const ACCESS_TOKEN_SECRET: string;
 
-const generateToken = (id: string): string => {
+const generateToken = (id: number): string => {
     return jwt.sign({id}, process.env.ACCESS_TOKEN_SECRET as string, { expiresIn: "5d" });
 }
 
