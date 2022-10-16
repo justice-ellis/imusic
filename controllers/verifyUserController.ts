@@ -1,6 +1,6 @@
 require('dotenv').config();
 import { NextFunction, Request, Response } from 'express';
-import cookieParser from 'cookie-parser';
+const cookieParser = require ('cookie-parser');
 import jwt, {Secret} from 'jsonwebtoken';
 import User, { mapUser } from '../models/userModel';
 import { SECRET_KEY } from './userController';
