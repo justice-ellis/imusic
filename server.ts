@@ -13,8 +13,8 @@ import { registerUser } from './controllers/userController';
 import message, { mapPrivatemessage } from './models/privatemessagesModel';
 import db from './config/db';
 
-//app.listen(process.env.PORT || 3000)
-//const port = process.env.PORT || 3000;
+const port: any = process.env.PORT || 3001;
+const host = process.env.YOUR_HOST || '0.0.0.0';
 
 // middleware
 app.use(express.urlencoded({ extended: false }));
@@ -36,13 +36,9 @@ sequelize.authenticate().then(() => {
     console.log('DB connection failed');
 })
 
-//mapMessage(db);
-//listen(process.env.PORT || 3000)
-
-app.listen(process.env.PORT || 3000, () => {
+app.listen(port, host, () => {
     console.log(`\n ⚡️ App listening at port ${process.env.PORT}!\n`);
 });
-
 
 
 
