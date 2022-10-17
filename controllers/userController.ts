@@ -1,6 +1,6 @@
 require('dotenv').config();
 import { NextFunction, Request, Response } from 'express';
-import cookieParser from 'cookie-parser';
+const cookieParser = require('cookie-parser');
 import { Sequelize } from 'sequelize';
 import User,  {mapUser} from '../models/userModel';
 import jwt, {Secret} from 'jsonwebtoken';
