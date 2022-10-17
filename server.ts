@@ -2,8 +2,6 @@ require('dotenv').config();
 import express from 'express';
 const app = express();
 import path from 'path';
-import cookieSession = require('cookie-session');
-import cookieParser from 'cookie-parser';
 import userRouter from './routes/userRoutes';
 import spotifyAuthRouter from './routes/spotifyAuthRoute';
 import messageRoute from './routes/messageRoutes'
@@ -19,7 +17,6 @@ const host = process.env.YOUR_HOST || '0.0.0.0';
 // middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cookieParser());
 //serve static files
 app.use('/', express.static(path.join(__dirname, '/public')));
 
